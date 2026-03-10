@@ -82,14 +82,9 @@ function scheduleNextUpdate() {
     }, msUntilNextHour);
 }
 
-while (true) {
-    let now = new Date();
-    let mills = now.getMilliseconds();
-    if (mills < 50) {
-        showPuzzle();
-        scheduleNextUpdate();
-    }
-};
+showPuzzle();
+scheduleNextUpdate();
+
 </script>
 
 </body>
