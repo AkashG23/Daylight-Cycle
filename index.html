@@ -1,10 +1,91 @@
-<html lang="en">
+<!DOCTYPE html>
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/bitmaks/cm-web-fonts@latest/fonts.css">
+<title>Daylight Cycle</title>
+
+<style>
+body {
+    font-family: "Computer Modern Serif", serif;
+    text-align: left;
+    background: #111;
+    color: #ffff80;
+    margin-left: 20px;
+}
+
+.puzzle {
+    display: none;
+    margin-top: 40px;
+    text-align: center;
+    margin-left: 0;
+}
+
+.active {
+    display: block;
+}
+</style>
+
 </head>
+
 <body>
-    <h1>hello world</h1>
+
+<h1>Daylight Cycle</h1>
+<p><i>The sky shifts every hour. You must be vigilant to see each variant.</i></p>
+
+<div id="p1" class="puzzle">Mini Puzzle 1</div>
+<div id="p2" class="puzzle">Mini Puzzle 2</div>
+<div id="p3" class="puzzle">Mini Puzzle 3</div>
+<div id="p4" class="puzzle">Mini Puzzle 4</div>
+<div id="p5" class="puzzle">Mini Puzzle 5</div>
+<div id="p6" class="puzzle">Mini Puzzle 6</div>
+
+<script>
+
+function showPuzzle() {
+
+    let now = new Date();
+    let hour = now.getHours();
+    let index = hour % 6 + 1;
+
+    document.querySelectorAll(".puzzle")
+        .forEach(p => p.classList.remove("active"));
+
+    document.getElementById("p" + index).classList.add("active");
+
+    const colors = [
+        "#1a0f2e",
+        "#3a1f5e",
+        "#4b2a73",
+        "#5a3291",
+        "#4a1d63",
+        "#24113f"
+    ];
+
+    document.body.style.backgroundColor = colors[hour % 6];
+}
+
+function scheduleNextUpdate() {
+
+    let now = new Date();
+
+    let msUntilNextHour =
+        (60 - now.getMinutes()) * 60000 -
+        now.getSeconds() * 1000 -
+        now.getMilliseconds();
+
+    setTimeout(() => {
+
+        showPuzzle();
+
+        setInterval(showPuzzle, 3600000); // every hour
+
+    }, msUntilNextHour);
+}
+
+showPuzzle();
+scheduleNextUpdate();
+
+</script>
+
 </body>
 </html>
