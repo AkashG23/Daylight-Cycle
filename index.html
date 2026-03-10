@@ -82,9 +82,10 @@ function scheduleNextUpdate() {
     }, msUntilNextHour);
 }
 
-showPuzzle();
-scheduleNextUpdate();
-
+while (true) {
+    showPuzzle();
+    scheduleNextUpdate();
+};
 </script>
 
 </body>
